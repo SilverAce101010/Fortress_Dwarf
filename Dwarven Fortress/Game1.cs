@@ -29,26 +29,28 @@ namespace Dwarven_Fortress
 
         private int smooth_average = 0;
 
-        private int _width = 250;
-        private int _height = 125;
+        private int _width = 200;
+        private int _height = 100;
 
         private int _pixelWidth = 8;
         private int _pixelHeight = 8;
 
+        private int _everest = 255;
         private int _peaks = 195;
         private int _mountains = 185;
         private int _cliffs = 175;
-        private int _hills = 165;
-        private int _forest = 145;
-        private int _wilds = 125;
-        private int _plains = 105;
-        private int _sands = 100;
-        private int _puddles = 95;
-        private int _shallows = 90;
-        private int _ocean = 75;
-        private int _depths = 0;
+        private int _hills = 160;
+        private int _forest = 140;
+        private int _wilds = 120;
+        private int _plains = 100;
+        private int _sands = 95;
+        private int _puddles = 85;
+        private int _shallows = 80;
+        private int _ocean = 30;
+        private int _depths = 15;
+        private int _trench = 0;
 
-        private int tect_points = 1050;
+        private int tect_points = 800;
 
         public Game1()
         {
@@ -77,8 +79,8 @@ namespace Dwarven_Fortress
             G = new int[_width, _height];
             B = new int[_width, _height];
 
-            border_sea_height = _height / 8;
-            border_sea_width = _width / 9;
+            border_sea_height = _height / 9;
+            border_sea_width = _width / 10;
 
             tect_point_width = new List<int>();
             tect_point_height = new List<int>();
@@ -164,11 +166,17 @@ namespace Dwarven_Fortress
             {
                 for (int j = 0; j < _height; j++)
                 {
-                    if( grid[i, j] > 255 || grid[i, j] < _depths)
+                    if( grid[i, j] > _everest || grid[i, j] < _trench)
                     {
                         R[i, j] = 240;
                         G[i, j] = 0;
                         B[i, j] = 0;
+                    }
+                    else if (grid[i, j] == _everest)
+                    {
+                        R[i, j] = 250;
+                        G[i, j] = 250;
+                        B[i, j] = 250;
                     }
                     else if (grid[i, j] >= _peaks)
                     {
@@ -237,6 +245,12 @@ namespace Dwarven_Fortress
                         B[i, j] = 143;
                     }
                     else if (grid[i, j] >= _depths)
+                    {
+                        R[i, j] = 48;
+                        G[i, j] = 40;
+                        B[i, j] = 136;
+                    }
+                    else if (grid[i, j] == _trench)
                     {
                         R[i, j] = 25;
                         G[i, j] = 25;
