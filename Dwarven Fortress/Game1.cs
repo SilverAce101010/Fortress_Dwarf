@@ -25,28 +25,30 @@ namespace Dwarven_Fortress
         List<int> tect_point_width;
         List<int> tect_point_height;
 
-        private int _smoothness = 3;
+        private int _smoothness = 5;
 
         private int smooth_average = 0;
 
-        private int _width = 2000; //250;
-        private int _height = 1000; //125;
+        private int _width = 250;
+        private int _height = 125;
 
-        private int _pixelWidth = 1; //8;
-        private int _pixelHeight = 1; //8;
+        private int _pixelWidth = 8;
+        private int _pixelHeight = 8;
 
         private int _peaks = 195;
         private int _mountains = 185;
         private int _cliffs = 175;
-        private int _hills = 160;
-        private int _forest = 140;
-        private int _wilds = 130;
-        private int _plains = 115;
-        private int _sands = 110;
-        private int _puddles = 105;
-        private int _shallows = 100;
+        private int _hills = 165;
+        private int _forest = 145;
+        private int _wilds = 125;
+        private int _plains = 105;
+        private int _sands = 100;
+        private int _puddles = 95;
+        private int _shallows = 90;
+        private int _ocean = 75;
+        private int _depths = 0;
 
-        private int tect_points = 73050; //900;
+        private int tect_points = 1050;
 
         public Game1()
         {
@@ -75,8 +77,8 @@ namespace Dwarven_Fortress
             G = new int[_width, _height];
             B = new int[_width, _height];
 
-            border_sea_height = _height / 10;
-            border_sea_width = _width / 11;
+            border_sea_height = _height / 8;
+            border_sea_width = _width / 9;
 
             tect_point_width = new List<int>();
             tect_point_height = new List<int>();
@@ -87,7 +89,7 @@ namespace Dwarven_Fortress
                 tect_point_height.Add(rng.Next(_height));
             }
 
-            // create gid
+            // create grid
             for (int i = 0; i < _width; i++)
             {
                 for (int j = 0; j < _height; j++)
@@ -114,7 +116,7 @@ namespace Dwarven_Fortress
                         int nl = tect_point_height[i] + l;
                         if (nk >= 0 && nk < _width && nl >= 0 && nl < _height)
                         {
-                            grid[nk, nl] = rng.Next(_mountains - 10, 255);
+                            grid[nk, nl] = rng.Next(_cliffs + 10, 255);
                         }
                     }
                 }
@@ -162,7 +164,7 @@ namespace Dwarven_Fortress
             {
                 for (int j = 0; j < _height; j++)
                 {
-                    if( grid[i, j] > 255 )
+                    if( grid[i, j] > 255 || grid[i, j] < _depths)
                     {
                         R[i, j] = 240;
                         G[i, j] = 0;
@@ -228,11 +230,17 @@ namespace Dwarven_Fortress
                         G[i, j] = 105;
                         B[i, j] = 137;
                     }
-                    else
+                    else if (grid[i, j] >= _ocean)
                     {
                         R[i, j] = 47;
                         G[i, j] = 47;
                         B[i, j] = 143;
+                    }
+                    else if (grid[i, j] >= _depths)
+                    {
+                        R[i, j] = 25;
+                        G[i, j] = 25;
+                        B[i, j] = 132;
                     }
                 }
             }
