@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Security.Cryptography;
 using System.Transactions;
 
 namespace Player_movement
@@ -32,7 +33,7 @@ namespace Player_movement
         private int xdirection = 1;
         private int ydirection = 1;
 
-        private int speed = 1;
+        private int speed = 2;
 
         public Game1()
         {
@@ -73,7 +74,6 @@ namespace Player_movement
             int mousex = mousePosition.X;
             int mousey = mousePosition.Y;
 
-
             if (x < mousex) { xdirection = 1; }
             if (x == mousex) { xdirection = 0; }
             if (x > mousex) { xdirection = -1; }
@@ -82,8 +82,8 @@ namespace Player_movement
             if (y == mousey) { ydirection = 0; }
             if (y > mousey) { ydirection = -1; }
 
-            x = x + (xdirection * speed);
-            y = y + (ydirection * speed);
+            x += (xdirection * speed);
+            y += (ydirection * speed);
 
 
             // TODO: Add your update logic here 
@@ -98,10 +98,7 @@ namespace Player_movement
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-
-
             _spriteBatch.Draw(rect, new Rectangle(x, y, 10, 10), Color.Chocolate);
-
 
             _spriteBatch.End();
 
