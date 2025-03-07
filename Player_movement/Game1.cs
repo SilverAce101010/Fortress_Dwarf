@@ -85,10 +85,6 @@ namespace Player_movement
             x = x + (xdirection * speed);
             y = y + (ydirection * speed);
 
-            //if (x == screen_width - pixel_width){xdirection =-1;}
-            //if (y == screen_hight  - pixel_hight){ydirection = -1;}
-            //if (x == 0) { xdirection = 1; }
-            //if (y == 0) { ydirection = 1; }
 
             // TODO: Add your update logic here 
 
