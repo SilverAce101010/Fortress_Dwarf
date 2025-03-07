@@ -29,19 +29,24 @@ namespace Dwarven_Fortress
 
         private int smooth_average = 0;
 
-        private int _width = 250;
-        private int _height = 125;
+        private int _width = 2000; //250;
+        private int _height = 1000; //125;
 
-        private int _pixelWidth = 8;
-        private int _pixelHeight = 8;
+        private int _pixelWidth = 1; //8;
+        private int _pixelHeight = 1; //8;
 
-        private int _peaks = 165;
-        private int _mountains = 155;
-        private int _forest = 130;
+        private int _peaks = 195;
+        private int _mountains = 185;
+        private int _cliffs = 175;
+        private int _hills = 160;
+        private int _forest = 140;
+        private int _wilds = 130;
         private int _plains = 115;
         private int _sands = 110;
+        private int _puddles = 105;
+        private int _shallows = 100;
 
-        private int tect_points = 450;
+        private int tect_points = 73050; //900;
 
         public Game1()
         {
@@ -70,8 +75,8 @@ namespace Dwarven_Fortress
             G = new int[_width, _height];
             B = new int[_width, _height];
 
-            border_sea_height = _height / 12;
-            border_sea_width = _width / 15;
+            border_sea_height = _height / 10;
+            border_sea_width = _width / 11;
 
             tect_point_width = new List<int>();
             tect_point_height = new List<int>();
@@ -89,7 +94,7 @@ namespace Dwarven_Fortress
                 {
                     if (i >= 0 && i < border_sea_width || j >= 0 && j < border_sea_height || i <= _width && i > _width - border_sea_width || j <= _height && j > _height - border_sea_height)
                     {
-                        grid[i, j] = rng.Next(100, _sands);
+                        grid[i, j] = rng.Next(_shallows - 25, _shallows);
                     }
                     else
                     {
@@ -133,7 +138,7 @@ namespace Dwarven_Fortress
                                 int nj = j + dj;
                                 if (ni >= 0 && ni < _width && nj >= 0 && nj < _height)
                                 {
-                                    smooth_average = smooth_average + grid[ni, nj];
+                                    smooth_average = smooth_average + grid[ni, nj] + rng.Next(5);
                                     num_neighbours++;
                                 }
                                 
@@ -159,15 +164,15 @@ namespace Dwarven_Fortress
                 {
                     if( grid[i, j] > 255 )
                     {
-                        R[i, j] = 245;
+                        R[i, j] = 240;
                         G[i, j] = 0;
                         B[i, j] = 0;
                     }
                     else if (grid[i, j] >= _peaks)
                     {
-                        R[i, j] = 250;
-                        G[i, j] = 250;
-                        B[i, j] = 250;
+                        R[i, j] = 215;
+                        G[i, j] = 215;
+                        B[i, j] = 215;
                     }
                     else if (grid[i, j] >= _mountains)
                     {
@@ -175,16 +180,34 @@ namespace Dwarven_Fortress
                         G[i, j] = 137;
                         B[i, j] = 137;
                     }
+                    else if (grid[i,j] >= _cliffs)
+                    {
+                        R[i, j] = 100;
+                        G[i, j] = 100;
+                        B[i, j] = 100;
+                    }
+                    else if (grid[i, j] >= _hills)
+                    {
+                        R[i, j] = 5;
+                        G[i, j] = 106;
+                        B[i, j] = 5;
+                    }
                     else if (grid[i, j] >= _forest)
                     {
-                        R[i, j] = 0;
+                        R[i, j] = 10;
                         G[i, j] = 128;
-                        B[i, j] = 0;
+                        B[i, j] = 9;
+                    }
+                    else if (grid[i, j] >= _wilds)
+                    {
+                        R[i, j] = 18;
+                        G[i, j] = 140;
+                        B[i, j] = 16;
                     }
                     else if (grid[i, j] >= _plains)
                     {
                         R[i, j] = 5;
-                        G[i, j] = 159;
+                        G[i, j] = 163;
                         B[i, j] = 4;
                     }
                     else if (grid[i, j] >= _sands)
@@ -193,11 +216,23 @@ namespace Dwarven_Fortress
                         G[i, j] = 178;
                         B[i, j] = 128;
                     }
+                    else if (grid[i, j] >= _puddles)
+                    {
+                        R[i, j] = 58;
+                        G[i, j] = 135;
+                        B[i, j] = 167;
+                    }
+                    else if (grid[i, j] >= _shallows)
+                    {
+                        R[i, j] = 28;
+                        G[i, j] = 105;
+                        B[i, j] = 137;
+                    }
                     else
                     {
-                        R[i, j] = 29;
-                        G[i, j] = 29;
-                        B[i, j] = 130;
+                        R[i, j] = 47;
+                        G[i, j] = 47;
+                        B[i, j] = 143;
                     }
                 }
             }
