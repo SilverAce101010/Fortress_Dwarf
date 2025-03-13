@@ -35,6 +35,9 @@ namespace Player_movement
 
         private int speed = 2;
 
+        private int mousex;
+        private int mousey;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -70,9 +73,13 @@ namespace Player_movement
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Point mousePosition = GetMousePosition();
-            int mousex = mousePosition.X;
-            int mousey = mousePosition.Y;
+            MouseState mouse = Mouse.GetState(); // Add this line to get the current mouse state
+            if (mouse.LeftButton == ButtonState.Pressed)
+            {
+                Point mousePosition = GetMousePosition();
+                mousex = mousePosition.X;
+                mousey = mousePosition.Y;
+            }
 
             if (x < mousex) { xdirection = 1; }
             if (x == mousex) { xdirection = 0; }
